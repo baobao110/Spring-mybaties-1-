@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<web-app xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee
+                      http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
+  version="3.1"
+  metadata-complete="true">
+
+	<listener>
+		<listener-class>com.Listen.servletListen</listener-class>
+	</listener>
+	
+	<listener>
+		<listener-class>com.Listen.sessionListen</listener-class>
+	</listener>
+	
+	<listener>
+		<listener-class>com.Listen.requestListen</listener-class>
+	</listener>
+    <servlet>
+      <servlet-name>test</servlet-name>
+      <servlet-class>com.Test.util</servlet-class>
+       <load-on-startup>1</load-on-startup>
+    </servlet>
+    
+    <servlet-mapping>
+      <servlet-name>test</servlet-name>
+      <url-pattern>*.do</url-pattern>
+    </servlet-mapping>
+    
+    <filter>
+    	<filter-name>z1</filter-name>
+    	<filter-class>com.filter.FilterX</filter-class>
+    </filter>
+    	
+    <filter-mapping>
+    	<filter-name>z1</filter-name>
+    	<url-pattern>*.do</url-pattern>
+    </filter-mapping>
+    
+    <filter-mapping>
+    	<filter-name>xx</filter-name>
+    	<url-pattern>*.do</url-pattern>
+    </filter-mapping>
+    
+    <filter>
+    	<filter-name>xx</filter-name>
+    	<filter-class>com.filter.check</filter-class>
+    </filter>
+    
+    <welcome-file-list>
+    	<welcome-file>index.jsp</welcome-file>
+        <welcome-file>index.html</welcome-file>
+        <welcome-file>index.xhtml</welcome-file>
+        <welcome-file>index.htm</welcome-file>
+    </welcome-file-list>
+    
+	<!-- welcome -file-list为默认的打开界面就是一打开localhost:8080就会出现的页面，这里需要注意的是打开
+	localhost:8080的默认路径在Eclipse中需要自己手动的配置,这里如何配置默认路径:在Tomcat的安装路径下找到conf文件
+	在下面的server.xml文件的末尾加上<Context path="" docBase="文件的位置/>",这里在Eclipse中的默认路径是
+	在webapp右击选择Properties,这里还需要注意的是在webapp下面必须有WEB-INF文件夹，同时文件夹下面有classes文件夹
+	,lib中放jar包要添加到buildPath下面,同时必须有web.xml
+	-->
+	
+	<!-- 这里可以比较一下Servlet和Filter的配置方式,发现它们都是通过url链接进行过滤判断的,然后通过找到同名的找到后台的程序类
+		这里它们的后台类程序地址都是以"."的形式进行连接,因此两者在执行顺序和查找方面都基本上一致 -->
+		
+	<!-- 这里需要注意的一点就是在整个web.xml的执行顺序上Filter永远先于所有的Servlet执行,但是如果 有多个Filter时,Filter
+		之间则是按照Filter在web.xml的先后顺序执行-->
+	
+</web-app>
